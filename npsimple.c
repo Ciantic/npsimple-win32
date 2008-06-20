@@ -104,6 +104,12 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 	return NPERR_NO_ERROR;
 }
 
+static NPError /* expected by Opera */
+setWindow(NPP instance, NPWindow* pNPWindow) {
+	fprintf(stderr, "npsimple: setWindow\n");
+	return NPERR_NO_ERROR;
+}
+
 /* EXPORT */
 
 NPError OSCALL
@@ -113,6 +119,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 	nppfuncs->newp          = new;
 	nppfuncs->destroy       = destroy;
 	nppfuncs->getvalue      = getValue;
+	nppfuncs->setwindow     = setWindow;
 
 	return NPERR_NO_ERROR;
 }
