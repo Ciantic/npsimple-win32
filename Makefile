@@ -30,7 +30,7 @@ clean:
 dist: clean
 	@echo creating dist tarball
 	@mkdir -p npsimple-${VERSION}
-	@cp -R Makefile config.mk test.html ${SRC} npsimple-${VERSION}
+	@cp -R Makefile README config.mk test.html ${SRC} npsimple-${VERSION}
 	@tar -cf npsimple-${VERSION}.tar npsimple-${VERSION}
 	@gzip npsimple-${VERSION}.tar
 	@rm -rf npsimple-${VERSION}
