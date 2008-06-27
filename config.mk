@@ -5,6 +5,7 @@ VERSION = 0.2
 
 # paths
 PLUGINDIR = /usr/lib/iceweasel/plugins
+BROWSER = iceweasel -a blah2
 
 # includes and libs
 NPAPIINCS = -I/usr/include/xulrunner-1.9/stable

@@ -2,19 +2,21 @@ This is a simple NPAPI test plugin with a scriptable object. Any function call
 into the plugin will return an int32 with the value 42.
 
 In order to build this plugin you need to setup the NPAPI headers (e.g.
-xulrunner-sdk) in config.mk. To build it just perform the following commands:
+xulrunner-sdk) in *config.mk*.
 
-; make
+	; make
 
-In order to install this plugin you might need to change the PLUGINDIR variable
-in config.mk as well.
+To Install:
 
-In order to test this plugin, make the test.html file accessible from some web
-server, restart your browser and load this page into your browser. Follow the
-instructions on this page.
+	; sudo make install
 
-Note: Mozilla-based browsers support file:///<path>/npsimple/test.html, however
-GTK-based WebKit git versions crash for some reason.
+To Un-install:
+
+	; sudo make uninstall
+
+Run interactive tests (should run the same):
+
+	; make test
 
 Following browsers have been tested successfully with this plugin so far:
 
