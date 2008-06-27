@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Aplix Foo Plugin Test</title>
+
+<title>Aplix Foo Plugin Test</title>
+
+<script type="text/javascript" src="setupplugin.js"></script>
+
+<script type="text/javascript">
+	window.onload = setupplugin;
+</script>
+
 </head>
 	<body>
 	<p>
-		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
 		<button onclick='alert(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
 	</p>
 	<p>

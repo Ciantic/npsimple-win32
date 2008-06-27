@@ -36,13 +36,13 @@ dist: clean
 	@rm -rf npsimple-${VERSION}
 
 install: all
-	@echo installing plugin file to ${DESTDIR}${PREFIX}/lib/firefox/plugins
-	@mkdir -p ${DESTDIR}${PREFIX}/lib/firefox/plugins
-	@cp -f npsimple.so ${DESTDIR}${PREFIX}/lib/firefox/plugins
-	@chmod 755 ${DESTDIR}${PREFIX}/lib/firefox/plugins/npsimple.so
+	@echo installing plugin file to ${PLUGINDIR}
+	@mkdir -p ${PLUGINDIR}
+	@cp -f npsimple.so ${PLUGINDIR}
+	@chmod 755 ${PLUGINDIR}/npsimple.so
 
 uninstall:
-	@echo removing executable file from ${DESTDIR}${PREFIX}/lib/firefox/plugins/npsimple.so
-	@rm -f ${DESTDIR}${PREFIX}/lib/firefox/npsimple.so
+	@echo removing executable file from ${PLUGINDIR}/npsimple.so
+	@rm -f ${PLUGINDIR}/npsimple.so
 
 .PHONY: all options clean dist install uninstall

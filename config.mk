@@ -4,8 +4,7 @@ VERSION = 0.2
 # Customize below to fit your system
 
 # paths
-PREFIX    = /usr
-PLUGINDIR = ${PREFIX}/lib/firefox/plugins
+PLUGINDIR = /usr/lib/iceweasel/plugins
 
 # includes and libs
 NPAPIINCS = -I/usr/include/xulrunner-1.9/stable
