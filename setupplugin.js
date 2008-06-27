@@ -2,7 +2,17 @@ function setupplugin()
 {
 
 var div = document.createElement("div");
-div.innerHTML = '<object id="pluginobj" type="application/x-vnd-aplix-jsx"> <param name="archive" value="101.jar"> <param name="launch" value="true"> <param name="log" value="logdiv"> Plugin FAILED to load </object>';
+div.style.visibility = "hidden";
+div.style.borderStyle = "hidden";
+div.style.width = 0;
+div.style.height = 0;
+div.style.border = 0;
+div.style.position = "absolute";
+div.style.top = 0;
+div.style.left = 0;
+div.innerHTML = '<object type="application/x-vnd-aplix-foo" ' +
+				'id="pluginobj">' +
+				'</object>';
 document.documentElement.appendChild(div);
 
 }

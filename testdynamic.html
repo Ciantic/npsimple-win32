@@ -7,15 +7,13 @@
 <script type="text/javascript" src="setupplugin.js"></script>
 
 <script type="text/javascript">
-//	window.onload = setupplugin;
-	window.addEventListener("load",setupplugin,false);
+	window.onload = setupplugin;
 </script>
-
 
 </head>
 	<body>
 	<p>
-		<button onclick='alert(document.getElementById("pluginobj").scriptSimple())'>Call plugin.scriptSimple()</button>
+		<button onclick='alert(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
 	</p>
 	<p>
 	If the plugin is working correctly, a click on the button should open a popup dialog containing <b>42</b> as value.
