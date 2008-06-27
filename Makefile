@@ -42,8 +42,8 @@ install: all
 	@chmod 755 ${PLUGINDIR}/npsimple.so
 
 test:
-	iceweasel -a blah2 test.html
-	iceweasel -a blah2 testloader.html
+	${BROWSER} test.html
+	${BROWSER} testloader.html
 
 uninstall:
 	@echo removing executable file from ${PLUGINDIR}/npsimple.so
