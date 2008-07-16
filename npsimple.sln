@@ -5,24 +5,42 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "npsimple", "npsimple.vcproj
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Smartphone 2003 (ARMV4) = Debug|Smartphone 2003 (ARMV4)
 		Debug|Win32 = Debug|Win32
+		FirefoxDebug|Smartphone 2003 (ARMV4) = FirefoxDebug|Smartphone 2003 (ARMV4)
 		FirefoxDebug|Win32 = FirefoxDebug|Win32
+		OperaDebug|Smartphone 2003 (ARMV4) = OperaDebug|Smartphone 2003 (ARMV4)
 		OperaDebug|Win32 = OperaDebug|Win32
+		Release|Smartphone 2003 (ARMV4) = Release|Smartphone 2003 (ARMV4)
 		Release|Win32 = Release|Win32
+		Safari2Debug|Smartphone 2003 (ARMV4) = Safari2Debug|Smartphone 2003 (ARMV4)
 		Safari2Debug|Win32 = Safari2Debug|Win32
+		SafariDebug|Smartphone 2003 (ARMV4) = SafariDebug|Smartphone 2003 (ARMV4)
 		SafariDebug|Win32 = SafariDebug|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Debug|Smartphone 2003 (ARMV4).ActiveCfg = Debug|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Debug|Smartphone 2003 (ARMV4).Build.0 = Debug|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Debug|Win32.Build.0 = Debug|Win32
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.FirefoxDebug|Smartphone 2003 (ARMV4).ActiveCfg = FirefoxDebug|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.FirefoxDebug|Smartphone 2003 (ARMV4).Build.0 = FirefoxDebug|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.FirefoxDebug|Win32.ActiveCfg = FirefoxDebug|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.FirefoxDebug|Win32.Build.0 = FirefoxDebug|Win32
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.OperaDebug|Smartphone 2003 (ARMV4).ActiveCfg = OperaDebug|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.OperaDebug|Smartphone 2003 (ARMV4).Build.0 = OperaDebug|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.OperaDebug|Win32.ActiveCfg = OperaDebug|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.OperaDebug|Win32.Build.0 = OperaDebug|Win32
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Release|Smartphone 2003 (ARMV4).ActiveCfg = Release|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Release|Smartphone 2003 (ARMV4).Build.0 = Release|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Release|Win32.ActiveCfg = Release|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Release|Win32.Build.0 = Release|Win32
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Safari2Debug|Smartphone 2003 (ARMV4).ActiveCfg = Safari2Debug|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Safari2Debug|Smartphone 2003 (ARMV4).Build.0 = Safari2Debug|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Safari2Debug|Win32.ActiveCfg = Safari2Debug|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.Safari2Debug|Win32.Build.0 = Safari2Debug|Win32
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.SafariDebug|Smartphone 2003 (ARMV4).ActiveCfg = SafariDebug|Smartphone 2003 (ARMV4)
+		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.SafariDebug|Smartphone 2003 (ARMV4).Build.0 = SafariDebug|Smartphone 2003 (ARMV4)
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.SafariDebug|Win32.ActiveCfg = SafariDebug|Win32
 		{2A26E3AB-1664-4474-87A6-2EFF2C85913A}.SafariDebug|Win32.Build.0 = SafariDebug|Win32
 	EndGlobalSection

@@ -3,9 +3,20 @@
  */
 #include <stdio.h>
 #include <string.h>
+
+#if XULRUNNER_SDK
 #include <npapi.h>
-#include <npupp.h>
+#include <npupp.h> 
 #include <npruntime.h>
+#elif _WINDOWS /* WebKit SDK on Windows */
+#ifndef PLATFORM
+#define PLATFORM(x) defined(x)
+#endif
+#include <npfunctions.h>
+#ifndef OSCALL
+#define OSCALL WINAPI
+#endif
+#endif
 
 static NPObject *so              = NULL;
 static NPNetscapeFuncs *npnfuncs = NULL;
@@ -96,10 +107,12 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 		npnfuncs->retainobject(so);
 		*(NPObject **)value = so;
 		break;
+#ifdef XULRUNNER_SDK
 	case NPPVpluginNeedsXEmbed:
 		fprintf(stderr, "npsimple: getvalue - xembed\n");
 		*((PRBool *)value) = PR_FALSE;
 		break;
+#endif
 	}
 	return NPERR_NO_ERROR;
 }

@@ -7,7 +7,14 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "winresrc.h"
+#ifndef _WIN32_WCE
+#include <winresrc.h>
+#else // _WIN32_WCE
+#include <dlgs.h>
+#include <winbase.h>
+#include <commctrl.h>
+#include <resdefce.h>
+#endif // _WIN32_WCE 
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
