@@ -61,7 +61,7 @@ static NPClass npcRefObject = {
 /* NPP */
 
 static NPError
-new(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc, char *argn[], char *argv[], NPSavedData *saved) {
+nevv(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc, char *argn[], char *argv[], NPSavedData *saved) {
 	fprintf(stderr, "npsimple: new\n");
 	return NPERR_NO_ERROR;
 }
@@ -111,12 +111,15 @@ setWindow(NPP instance, NPWindow* pNPWindow) {
 }
 
 /* EXPORT */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 NPError OSCALL
 NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 	fprintf(stderr, "npsimple: NP_GetEntryPoints\n");
 	nppfuncs->version       = (NP_VERSION_MAJOR << 8) | NP_VERSION_MINOR;
-	nppfuncs->newp          = new;
+	nppfuncs->newp          = nevv;
 	nppfuncs->destroy       = destroy;
 	nppfuncs->getvalue      = getValue;
 	nppfuncs->setwindow     = setWindow;
@@ -129,7 +132,13 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 #endif
 
 NPError OSCALL
-NP_Initialize(NPNetscapeFuncs *npnf, NPPluginFuncs *nppfuncs) {
+NP_Initialize(NPNetscapeFuncs *npnf
+#ifndef _WINDOWS
+			, NPPluginFuncs *nppfuncs)
+#else
+			)
+#endif
+{
 	fprintf(stderr, "npsimple: NP_Initialize\n");
 	if(npnf == NULL)
 		return NPERR_INVALID_FUNCTABLE_ERROR;
@@ -138,8 +147,9 @@ NP_Initialize(NPNetscapeFuncs *npnf, NPPluginFuncs *nppfuncs) {
 		return NPERR_INCOMPATIBLE_VERSION_ERROR;
 
 	npnfuncs = npnf;
-
+#ifndef _WINDOWS
 	NP_GetEntryPoints(nppfuncs);
+#endif
 	return NPERR_NO_ERROR;
 }
 
@@ -149,10 +159,10 @@ OSCALL NP_Shutdown() {
 	return NPERR_NO_ERROR;
 }
 
-char * OSCALL
+char *
 NP_GetMIMEDescription(void) {
 	fprintf(stderr, "npsimple: NP_GetMIMEDescription\n");
-	return "application/x-vnd-aplix-foo:.foo:dev-jsx@aplix.co.jp "VERSION;
+	return "application/x-vnd-aplix-foo:.foo:dev-jsx@aplix.co.jp";
 }
 
 NPError OSCALL /* needs to be present for WebKit based browsers */
@@ -160,3 +170,6 @@ NP_GetValue(void *npp, NPPVariable variable, void *value) {
 	return getValue((NPP)npp, variable, value);
 }
 
+#ifdef __cplusplus
+}
+#endif
