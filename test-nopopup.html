@@ -11,7 +11,8 @@ function log(x) {
 	<body>
 	<p>
 		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
-		<button onclick='alert(log(pluginobj.scriptSimple()))'>Call plugin.scriptSimple()</button>
+		<button onclick='log(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
+		<button onclick='log("test")'>Test</button>
 	</p>
 	<div id="logdiv">
 	If the plugin is working correctly, a click on the button should append <b>42</b> as value.

@@ -13,7 +13,7 @@ INCS = -I. -I/usr/include ${NPAPIINCS}
 LIBS = -L/usr/lib -lc
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\"
+CPPFLAGS = -DVERSION=\"${VERSION}\" -DXULRUNNER_SDK
 CFLAGS = -g -pedantic -Wall -O2 ${INCS} ${CPPFLAGS}
 LDFLAGS = ${LIBS}
 
