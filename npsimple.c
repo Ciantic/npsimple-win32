@@ -23,15 +23,25 @@ static NPNetscapeFuncs *npnfuncs = NULL;
 
 /* NPN */
 
+static void logmsg(const char *msg) {
+#ifndef _WINDOWS
+	fputs(msg, stderr);
+#else
+	static FILE *out = fopen("\\npsimple.log", "a");
+	fputs(msg, out);
+	fclose(out);
+#endif
+}
+
 static bool
 hasMethod(NPObject* obj, NPIdentifier methodName) {
-	fprintf(stderr, "npsimple: hasMethod\n");
+	logmsg("npsimple: hasMethod\n");
 	return true;
 }
 
 static bool
 invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-	fprintf(stderr, "npsimple: invokeDefault\n");
+	logmsg("npsimple: invokeDefault\n");
 	result->type = NPVariantType_Int32;
 	result->value.intValue = 42;
 	return true;
@@ -39,19 +49,19 @@ invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant
 
 static bool
 invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
-	fprintf(stderr, "npsimple: invoke\n");
+	logmsg("npsimple: invoke\n");
 	return invokeDefault(obj, args, argCount, result);
 }
 
 static bool
 hasProperty(NPObject *obj, NPIdentifier propertyName) {
-	fprintf(stderr, "npsimple: hasProperty\n");
+	logmsg("npsimple: hasProperty\n");
 	return false;
 }
 
 static bool
 getProperty(NPObject *obj, NPIdentifier propertyName, NPVariant *result) {
-	fprintf(stderr, "npsimple: getProperty\n");
+	logmsg("npsimple: getProperty\n");
 	return false;
 }
 
@@ -73,7 +83,7 @@ static NPClass npcRefObject = {
 
 static NPError
 nevv(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc, char *argn[], char *argv[], NPSavedData *saved) {
-	fprintf(stderr, "npsimple: new\n");
+	logmsg("npsimple: new\n");
 	return NPERR_NO_ERROR;
 }
 
@@ -82,7 +92,7 @@ destroy(NPP instance, NPSavedData **save) {
 	if(so)
 		npnfuncs->releaseobject(so);
 	so = NULL;
-	fprintf(stderr, "npsimple: destroy\n");
+	logmsg("npsimple: destroy\n");
 	return NPERR_NO_ERROR;
 }
 
@@ -90,18 +100,18 @@ static NPError
 getValue(NPP instance, NPPVariable variable, void *value) {
 	switch(variable) {
 	default:
-		fprintf(stderr, "npsimple: getvalue - default\n");
+		logmsg("npsimple: getvalue - default\n");
 		return NPERR_GENERIC_ERROR;
 	case NPPVpluginNameString:
-		fprintf(stderr, "npsimple: getvalue - name string\n");
+		logmsg("npsimple: getvalue - name string\n");
 		*((char **)value) = "AplixFooPlugin";
 		break;
 	case NPPVpluginDescriptionString:
-		fprintf(stderr, "npsimple: getvalue - description string\n");
+		logmsg("npsimple: getvalue - description string\n");
 		*((char **)value) = "<a href=\"http://www.aplix.co.jp/\">AplixFooPlugin</a> plugin.";
 		break;
 	case NPPVpluginScriptableNPObject:
-		fprintf(stderr, "npsimple: getvalue - scriptable object\n");
+		logmsg("npsimple: getvalue - scriptable object\n");
 		if(!so)
 			so = npnfuncs->createobject(instance, &npcRefObject);
 		npnfuncs->retainobject(so);
@@ -109,7 +119,7 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 		break;
 #ifdef XULRUNNER_SDK
 	case NPPVpluginNeedsXEmbed:
-		fprintf(stderr, "npsimple: getvalue - xembed\n");
+		logmsg("npsimple: getvalue - xembed\n");
 		*((PRBool *)value) = PR_FALSE;
 		break;
 #endif
@@ -119,7 +129,7 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 
 static NPError /* expected by Opera */
 setWindow(NPP instance, NPWindow* pNPWindow) {
-	fprintf(stderr, "npsimple: setWindow\n");
+	logmsg("npsimple: setWindow\n");
 	return NPERR_NO_ERROR;
 }
 
@@ -130,7 +140,7 @@ extern "C" {
 
 NPError OSCALL
 NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
-	fprintf(stderr, "npsimple: NP_GetEntryPoints\n");
+	logmsg("npsimple: NP_GetEntryPoints\n");
 	nppfuncs->version       = (NP_VERSION_MAJOR << 8) | NP_VERSION_MINOR;
 	nppfuncs->newp          = nevv;
 	nppfuncs->destroy       = destroy;
@@ -152,7 +162,7 @@ NP_Initialize(NPNetscapeFuncs *npnf
 			)
 #endif
 {
-	fprintf(stderr, "npsimple: NP_Initialize\n");
+	logmsg("npsimple: NP_Initialize\n");
 	if(npnf == NULL)
 		return NPERR_INVALID_FUNCTABLE_ERROR;
 
@@ -168,13 +178,13 @@ NP_Initialize(NPNetscapeFuncs *npnf
 
 NPError
 OSCALL NP_Shutdown() {
-	fprintf(stderr, "npsimple: NP_Shutdown\n");
+	logmsg("npsimple: NP_Shutdown\n");
 	return NPERR_NO_ERROR;
 }
 
 char *
 NP_GetMIMEDescription(void) {
-	fprintf(stderr, "npsimple: NP_GetMIMEDescription\n");
+	logmsg("npsimple: NP_GetMIMEDescription\n");
 	return "application/x-vnd-aplix-foo:.foo:dev-jsx@aplix.co.jp";
 }
 
