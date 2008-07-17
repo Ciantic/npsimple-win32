@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aplix Foo Plugin Test (no popup)</title>
+</head>
+
+<script type="text/javascript">
+function log(x) {
+    window.document.getElementById("logdiv").innerHTML += '<div>' + x.toString() + "</div>\n";
+</script>
+	<body>
+	<p>
+		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
+		<button onclick='alert(log(pluginobj.scriptSimple()))'>Call plugin.scriptSimple()</button>
+	</p>
+	<div id="logdiv">
+	If the plugin is working correctly, a click on the button should append <b>42</b> as value.
+	</div>
+	</body>
+</html>
