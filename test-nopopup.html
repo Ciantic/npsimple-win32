@@ -8,7 +8,6 @@
 function log(x) {
     window.document.getElementById("logdiv").innerHTML += '<div>' + x.toString() + "</div>\n";}
 </script>
-
 </head>
 
 <body>
@@ -31,14 +30,11 @@ function log(x) {
 	If the plugin is working correctly, a click on the button should append <b>42</b> as value.
 	</div>
 
-
 	<p>
 		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
 	</p>
 	<p>
-		<button onclick='log(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
-		<button onclick='log("test")'>Test</button>
-		<INPUT TYPE=button value="input type submit" ONCLICK="log('another test')">
+		<button style="button: font-size: 3em;" onclick='log(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
 	</p>
 	</body>
 </html>
