@@ -6,39 +6,27 @@
 
 <script type="text/javascript">
 function log(x) {
-    window.document.getElementById("logdiv").innerHTML += '<div>' + x.toString() + "</div>\n";
+	logdiv = window.document.getElementById("logdiv");
+    logdiv.innerHTML += '<div>' + x.toString() + "</div>\n";}
+	if (parseInt(x) === 42) {
+	logdiv.setAttribute("style", "color: green;");
+	} else {
+	logdiv.setAttribute("style", "color: red;");
+	}
 </script>
-
 </head>
-
 <body>
 
-<script type="application/x-javascript">
-
-  body  = document.getElementsByTagName("body").item(0);
-  pre = document.createElement("pre");
-  ua = document.createTextNode(window.navigator.userAgent + '\n');
-  hw = document.createTextNode('Screen size: ' + window.screen.width + 'x' + window.screen.height + '\n');
-  ahw = document.createTextNode('Availible screen size: ' + window.screen.availWidth + 'x' + window.screen.availHeight);
-  pre.appendChild(ua);
-  pre.appendChild(hw);
-  pre.appendChild(ahw);
-  body.appendChild(pre);
-
-</script>
-
 	<div id="logdiv">
-	If the plugin is working correctly, a click on the button should append <b>42</b> as value.
 	</div>
-
 
 	<p>
 		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
 	</p>
+
 	<p>
-		<button onclick='log(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
-		<button onclick='log("test")'>Test</button>
-		<INPUT TYPE=button value="input type submit" ONCLICK="log('another test')">
+		<button style="font-size: 2em;" onclick='log(pluginobj.scriptSimple())'>Call Test</button>
 	</p>
+
 	</body>
 </html>

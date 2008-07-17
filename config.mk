@@ -9,7 +9,7 @@ BROWSER = iceweasel -a blah2
 
 # includes and libs
 NPAPIINCS = -I/usr/include/xulrunner-1.9/stable
-INCS = -I. -I/usr/include ${NPAPIINCS}
+INCS = -I/usr/include ${NPAPIINCS}
 LIBS = -L/usr/lib -lc
 
 # flags
