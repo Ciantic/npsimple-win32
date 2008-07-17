@@ -2,7 +2,18 @@
 <html>
 <head>
 <title>Aplix Foo Plugin Test (no popup)</title>
-<script type="text/javascript" src="test.js"></script>
+<script type="text/javascript">
+function log(x) {
+	logdiv = window.document.getElementById("logdiv");
+	if (parseInt(x) === 42) {
+	logdiv.innerHTML = 'PASS';
+	logdiv.setAttribute("style", "color: green;");
+	} else {
+	logdiv.innerHTML = 'FAIL';
+	logdiv.setAttribute("style", "color: red;");
+	}
+}
+</script>
 </head>
 <body>
 
