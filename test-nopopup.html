@@ -8,15 +8,16 @@
 function log(x) {
 	logdiv = window.document.getElementById("logdiv");
     logdiv.innerHTML += '<div>' + x.toString() + "</div>\n";}
-	if (int(x) === 42) {
+	if (parseInt(x) === 42) {
 	logdiv.setAttribute("style", "color: green;");
+	} else {
+	logdiv.setAttribute("style", "color: red;");
 	}
 </script>
 </head>
 <body>
 
 	<div id="logdiv">
-	If the plugin is working correctly, a click on the button should append <b>42</b> as value.
 	</div>
 
 	<p>
@@ -24,7 +25,7 @@ function log(x) {
 	</p>
 
 	<p>
-		<button style="font-size: 3em;" onclick='log(pluginobj.scriptSimple())'>Call Test</button>
+		<button style="font-size: 2em;" onclick='log(pluginobj.scriptSimple())'>Call Test</button>
 	</p>
 
 	</body>
