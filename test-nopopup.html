@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Aplix Foo Plugin Test (no popup)</title>
-
-<script type="text/javascript">
-function log(x) {
-	logdiv = window.document.getElementById("logdiv");
-    logdiv.innerHTML += '<div>' + x.toString() + "</div>\n";}
-	if (parseInt(x) === 42) {
-	logdiv.setAttribute("style", "color: green;");
-	} else {
-	logdiv.setAttribute("style", "color: red;");
-	}
-</script>
+<script type="text/javascript" src="test.js"></script>
 </head>
 <body>
 
-	<div id="logdiv">
-	</div>
+	<div id="logdiv"></div>
 
-	<p>
-		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
-	</p>
+	<p> <object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object> </p>
 
-	<p>
-		<button style="font-size: 2em;" onclick='log(pluginobj.scriptSimple())'>Call Test</button>
-	</p>
+	<p> <button style="font-size: 2em;" onclick='log(pluginobj.scriptSimple())'>Call Test</button> </p>
 
 	</body>
 </html>
