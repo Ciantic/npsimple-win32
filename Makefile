@@ -25,7 +25,8 @@ npsimple.so: ${OBJ}
 
 clean:
 	@echo cleaning
-	@rm -f npsimple.so ${OBJ} npsimple-${VERSION}.tar.gz
+	@rm -f npsimple.so ${OBJ} npsimple-${VERSION}.tar.gz Localized.rsrc
+	@rm -rf npsimple.plugin
 
 dist: clean
 	@echo creating dist tarball
@@ -40,6 +41,16 @@ install: all
 	@mkdir -p ${PLUGINDIR}
 	@cp -f npsimple.so ${PLUGINDIR}
 	@chmod 755 ${PLUGINDIR}/npsimple.so
+
+Localized.rsrc:
+	/Developer/Tools/Rez -o Localized.rsrc -useDF Localized.r
+
+macinstall: all Localized.rsrc
+	mkdir -p npsimple.plugin/Contents/MacOS
+	mkdir -p npsimple.plugin/Contents/Resources/English.lproj
+	cp -r Localized.rsrc npsimple.plugin/Contents/Resources/English.lproj
+	cp -f Info.plist npsimple.plugin/Contents
+	cp -f npsimple.so npsimple.plugin/Contents/MacOS/npsimple
 
 test:
 	${BROWSER} test.html

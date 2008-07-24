@@ -4,6 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#if defined(OS_Darwin)
+#include <Webkit/npapi.h>
+#include <WebKit/npfunctions.h>
+#include <WebKit/npruntime.h>
+#define OSCALL
+#endif
+
 #if XULRUNNER_SDK
 #include <npapi.h>
 #include <npupp.h> 
