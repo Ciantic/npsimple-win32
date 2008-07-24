@@ -134,6 +134,12 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 	return NPERR_NO_ERROR;
 }
 
+static NPError /* expected by Safari on Darwin */
+handleEvent(NPP instance, void *ev) {
+	logmsg("npsimple: handleEvent\n");
+	return NPERR_NO_ERROR;
+}
+
 static NPError /* expected by Opera */
 setWindow(NPP instance, NPWindow* pNPWindow) {
 	logmsg("npsimple: setWindow\n");
@@ -152,6 +158,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 	nppfuncs->newp          = nevv;
 	nppfuncs->destroy       = destroy;
 	nppfuncs->getvalue      = getValue;
+	nppfuncs->event         = handleEvent;
 	nppfuncs->setwindow     = setWindow;
 
 	return NPERR_NO_ERROR;
@@ -163,7 +170,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 
 NPError OSCALL
 NP_Initialize(NPNetscapeFuncs *npnf
-#ifndef _WINDOWS
+#if !defined(_WINDOWS) && !defined(OS_Darwin)
 			, NPPluginFuncs *nppfuncs)
 #else
 			)
@@ -177,7 +184,7 @@ NP_Initialize(NPNetscapeFuncs *npnf
 		return NPERR_INCOMPATIBLE_VERSION_ERROR;
 
 	npnfuncs = npnf;
-#ifndef _WINDOWS
+#if !defined(_WINDOWS) && !defined(OS_Darwin)
 	NP_GetEntryPoints(nppfuncs);
 #endif
 	return NPERR_NO_ERROR;
