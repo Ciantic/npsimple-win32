@@ -134,7 +134,7 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 		npnfuncs->retainobject(so);
 		*(NPObject **)value = so;
 		break;
-#ifdef XULRUNNER_SDK
+#if defined(XULRUNNER_SDK)
 	case NPPVpluginNeedsXEmbed:
 		logmsg("npsimple: getvalue - xembed\n");
 		*((PRBool *)value) = PR_FALSE;
@@ -180,7 +180,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 
 NPError OSCALL
 NP_Initialize(NPNetscapeFuncs *npnf
-#if !defined(_WINDOWS) && !defined(OS_Darwin)
+#if !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
 			, NPPluginFuncs *nppfuncs)
 #else
 			)
@@ -194,7 +194,7 @@ NP_Initialize(NPNetscapeFuncs *npnf
 		return NPERR_INCOMPATIBLE_VERSION_ERROR;
 
 	npnfuncs = npnf;
-#if !defined(_WINDOWS) && !defined(OS_Darwin)
+#if !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
 	NP_GetEntryPoints(nppfuncs);
 #endif
 	return NPERR_NO_ERROR;
