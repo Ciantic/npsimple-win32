@@ -6,18 +6,6 @@ xulrunner-sdk) in *config.mk*.
 
 	; make
 
-To Install:
-
-	; sudo make install
-
-To Un-install:
-
-	; sudo make uninstall
-
-Run interactive tests (should run the same):
-
-	; make test
-
 Following browsers have been tested successfully with this plugin so far:
 
 - Iceweasel 2.0/Debian Linux
@@ -27,3 +15,5 @@ Following browsers have been tested successfully with this plugin so far:
 - WebKit/GTK c6c3f8ca4996a96a1c7e9d1ddb9c6e3bd05daed9/Ubuntu Linux
 - Opera 9.27/Ubuntu Linux
 - Opera 9.5/Debian Linux
+- Firefox 3/Darwin
+- Safari 3.1.2/Darwin
