@@ -17,3 +17,10 @@ Following browsers have been tested successfully with this plugin so far:
 - Opera 9.5/Debian Linux
 - Firefox 3/Darwin
 - Safari 3.1.2/Darwin
+- Firefox 3.0/Windows XP
+- Opera 9.5/Windows XP
+
+What does not work:
+
+- Opera 9.51/Darwin bug-350791@bugs.opera.com.
+- Torchmobile 1.0.12 http://www.torchmobile.com/blog/?p=9
