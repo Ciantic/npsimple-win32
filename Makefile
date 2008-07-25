@@ -45,8 +45,4 @@ Darwin:
 	@echo Test: /Applications/Firefox.app/Contents/MacOS/firefox test.html
 	@echo Test: /Applications/Opera.app/Contents/MacOS/Opera file://`pwd`/test.html
 
-uninstall:
-	@echo removing executable file from ${PLUGINDIR}/npsimple.so
-	@rm -f ${PLUGINDIR}/npsimple.so
-
-.PHONY: all options clean install uninstall Darwin Linux
+.PHONY: all options clean Darwin Linux
