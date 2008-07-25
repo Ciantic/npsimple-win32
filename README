@@ -22,5 +22,7 @@ Following browsers have been tested successfully with this plugin so far:
 
 What does not work:
 
-- Opera 9.51/Darwin bug-350791@bugs.opera.com.
+- Opera 9.51/Darwin bug-350791@bugs.opera.com
 - Torchmobile 1.0.12 http://www.torchmobile.com/blog/?p=9
+
+Further information: http://wiki.webvm.net/webvm/npapi/
