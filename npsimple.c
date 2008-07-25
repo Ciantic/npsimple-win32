@@ -13,7 +13,7 @@
 
 #if XULRUNNER_SDK
 #include <npapi.h>
-#include <npupp.h> 
+#include <npupp.h>
 #include <npruntime.h>
 #elif _WINDOWS /* WebKit SDK on Windows */
 #ifndef PLATFORM
@@ -77,7 +77,7 @@ static NPClass npcRefObject = {
 	NULL,
 	NULL,
 	NULL,
-	hasMethod, 
+	hasMethod,
 	invoke,
 	invokeDefault,
 	hasProperty,
