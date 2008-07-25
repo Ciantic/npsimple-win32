@@ -3,19 +3,15 @@ VERSION = 0.2
 
 # Customize below to fit your system
 
-# paths
-PLUGINDIR = ~/Library/Internet\ Plug-Ins/
-BROWSER = safari
-
-# includes and libs
-#NPAPIINCS = -I/usr/include/xulrunner-1.9/stable
-#INCS = -I/usr/include ${NPAPIINCS}
-#LIBS = -L/usr/lib #-framework Carbon -framework CoreFoundation -framework WebKit
-
-# flags
+ifeq (${shell uname}, Darwin)
 CPPFLAGS = -DVERSION=\"${VERSION}\" -DOS_Darwin
-CFLAGS = -g -pedantic -Wall -O2 ${INCS} ${CPPFLAGS}
 LDFLAGS = ${LIBS} -dynamiclib -framework Carbon -framework CoreFoundation -framework WebKit
+else
+INCS = -I/usr/include/xulrunner-1.9/stable # apt-get install xulrunner-dev
+CPPFLAGS = -DVERSION=\"${VERSION}\" -DXULRUNNER_SDK
+#LDFLAGS = -L/usr/lib -lc
+endif
+CFLAGS = -g -pedantic -Wall -O2 ${INCS} ${CPPFLAGS}
 
 # compiler and linker
-CC = cc -v
+CC = cc
