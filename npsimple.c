@@ -16,18 +16,16 @@
 #include <stdio.h>
 #include <string.h>
 
-#if defined(OS_Darwin)
+#if defined(XULRUNNER_SDK)
+#include <npapi.h>
+#include <npupp.h>
+#include <npruntime.h>
+#elif defined(WEBKIT_DARWIN_SDK)
 #include <Webkit/npapi.h>
 #include <WebKit/npfunctions.h>
 #include <WebKit/npruntime.h>
 #define OSCALL
-#endif
-
-#if XULRUNNER_SDK
-#include <npapi.h>
-#include <npupp.h>
-#include <npruntime.h>
-#elif _WINDOWS /* WebKit SDK on Windows */
+#elif defined(WEBKIT_WINMOBILE_SDK) /* WebKit SDK on Windows */
 #ifndef PLATFORM
 #define PLATFORM(x) defined(x)
 #endif
@@ -211,7 +209,7 @@ OSCALL NP_Shutdown() {
 char *
 NP_GetMIMEDescription(void) {
 	logmsg("npsimple: NP_GetMIMEDescription\n");
-	return "application/x-vnd-aplix-foo:.foo:dev-jsx@aplix.co.jp";
+	return "application/x-vnd-aplix-foo:.foo:anselm@aplix.co.jp";
 }
 
 NPError OSCALL /* needs to be present for WebKit based browsers */

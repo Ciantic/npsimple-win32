@@ -51,16 +51,16 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", " Aplix Corporation"
-            VALUE "FileDescription", "0.2"
+            VALUE "FileDescription", "0.3"
             VALUE "FileExtents", "foo"
             VALUE "FileOpenName", "Aplix Foo Plugin"
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "AplixFooPlugin"
-            VALUE "LegalCopyright", "Copyright 2008 Aplix Corporation. All rights reserved."
+            VALUE "LegalCopyright", "Copyright 2008 Aplix Corporation."
             VALUE "MIMEType", "application/x-vnd-aplix-foo"
             VALUE "OriginalFilename", "npsimple.dll"
             VALUE "ProductName", "Aplix Foo Plugin"
-            VALUE "ProductVersion", "1, 0, 0, 2"
+            VALUE "ProductVersion", "1, 0, 0, 3"
         END
     END
     BLOCK "VarFileInfo"
