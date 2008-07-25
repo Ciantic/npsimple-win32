@@ -89,7 +89,7 @@ static NPClass npcRefObject = {
 	NULL,
 	NULL,
 	NULL,
-	hasMethod, 
+	hasMethod,
 	invoke,
 	invokeDefault,
 	hasProperty,
