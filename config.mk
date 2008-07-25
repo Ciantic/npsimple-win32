@@ -5,7 +5,7 @@ VERSION = 0.3
 
 ifeq (${shell uname}, Darwin)
 CPPFLAGS = -DVERSION=\"${VERSION}\" -DWEBKIT_DARWIN_SDK
-LDFLAGS = ${LIBS} -dynamiclib -framework Carbon -framework CoreFoundation -framework WebKit
+LDFLAGS = -dynamiclib #-framework Carbon -framework CoreFoundation -framework WebKit
 else
 INCS = -I/usr/include/xulrunner-1.9/stable # apt-get install xulrunner-dev
 CPPFLAGS = -DVERSION=\"${VERSION}\" -DXULRUNNER_SDK
