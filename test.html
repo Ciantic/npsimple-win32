@@ -3,28 +3,9 @@
 <head>
 <title>Aplix Foo Plugin Test (no popup)</title>
 <script type="text/javascript" src="loader.js"></script>
-<script type="text/javascript">
-function api() {
-	result = window.document.getElementById("pluginobj").scriptSimple();
-	logdiv = window.document.getElementById("logdiv");
-	if (parseInt(result) === 42) {
-	logdiv.innerHTML = 'PASS :-)';
-	logdiv.setAttribute("style", "color: green;");
-	} else {
-	logdiv.innerHTML = 'FAIL :-(';
-	logdiv.setAttribute("style", "color: red;");
-	}
-}
-if (navigator.plugins["AplixFooPlugin"]) {
-	document.writeln("<h1>AplixFooPlugin found</h1><p>");
-} else {
-	document.writeln("<h1>AplixFooPlugin not found</h1><p>");
-}
-</script>
 </head>
-<body onload="api()">
 
-<h1 id="logdiv"></h1>
+<body onload='loadapi("aplixfoo-test.js")'>
 
 </body>
 </html>
