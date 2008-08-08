@@ -1,6 +1,3 @@
-function setupplugin()
-{
-
 var div = document.createElement("div");
 div.style.visibility = "hidden";
 div.style.borderStyle = "hidden";
@@ -14,5 +11,3 @@ div.innerHTML = '<object type="application/x-vnd-aplix-foo" ' +
 				'id="pluginobj">' +
 				'</object>';
 document.documentElement.appendChild(div);
-
-}
