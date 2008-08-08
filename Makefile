@@ -2,6 +2,7 @@
 
 include config.mk
 
+TEST = test.html
 SRC = npsimple.c
 OBJ = ${SRC:.c=.o}
 
@@ -31,7 +32,7 @@ clean:
 Linux:
 	@chmod 755 npsimple.so
 	@echo Setup: sudo ln -s ${shell pwd}/npsimple.so /usr/lib/mozilla/plugins/npsimple.so
-	@echo Test: /usr/lib/webkit-1.0/libexec/GtkLauncher file://`pwd`/test.html # apt-get install libwebkit-1.0-1
+	@echo Test: /usr/lib/webkit-1.0/libexec/GtkLauncher file://`pwd`/${TEST} # apt-get install libwebkit-1.0-1
 
 Darwin:
 	/Developer/Tools/Rez -o Localized.rsrc -useDF Localized.r
@@ -41,8 +42,8 @@ Darwin:
 	cp -f Info.plist npsimple.plugin/Contents
 	cp -f npsimple.so npsimple.plugin/Contents/MacOS/npsimple
 	@echo Setup: sudo ln -s `pwd`/npsimple.so /Library/Internet\\ Plug-Ins/npsimple.plugin
-	@echo Test: /Applications/Safari.app/Contents/MacOS/Safari test.html
-	@echo Test: /Applications/Firefox.app/Contents/MacOS/firefox test.html
-	@echo Test: /Applications/Opera.app/Contents/MacOS/Opera file://`pwd`/test.html
+	@echo Test: /Applications/Safari.app/Contents/MacOS/Safari ${TEST}
+	@echo Test: /Applications/Firefox.app/Contents/MacOS/firefox ${TEST}
+	@echo Test: /Applications/Opera.app/Contents/MacOS/Opera file://`pwd`/${TEST}
 
 .PHONY: all options clean Darwin Linux
