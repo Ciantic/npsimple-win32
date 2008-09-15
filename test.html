@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 	<title>Aplix Foo Plugin Test</title>
-</head>
+	</head>
 	<body>
+	<script type="text/javascript">
+		function scriptSimple() {
+			try {
+				alert(document.getElementById("pluginobj").scriptSimple());
+			}
+			catch(e) {
+				alert(e);
+			}
+		}
 
+		function foo() {
+			try {
+				alert(document.getElementById("pluginobj").foo());
+			}
+			catch(e) {
+				alert(e);
+			}
+		}
+	</script>
 	<p>
-		<button onclick='alert(pluginobj.scriptSimple())'>Call plugin.scriptSimple()</button>
+		<button onclick='scriptSimple()'>Call scriptSimple()</button>
+		<button onclick='foo()'>Call foo()</button>
 		<object id="pluginobj" type="application/x-vnd-aplix-foo">Plugin FAILED to load</object>
 	</p>
 

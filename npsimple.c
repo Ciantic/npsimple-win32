@@ -67,7 +67,15 @@ invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant
 static bool
 invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
 	logmsg("npsimple: invoke\n");
-	return invokeDefault(obj, args, argCount, result);
+	char *name = npnfuncs->utf8fromidentifier(methodName);
+	if(name && !strcmp((const char *)name, "foo")) {
+		return invokeDefault(obj, args, argCount, result);
+	}
+	else {
+		// aim exception handling
+		npnfuncs->setexception(obj, "exception during invocation");
+		return false;
+	}
 }
 
 static bool
