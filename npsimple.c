@@ -44,7 +44,7 @@ static void logmsg(const char *msg) {
 #ifndef _WINDOWS
 	fputs(msg, stderr);
 #else
-	static FILE *out = fopen("\\npsimple.log", "a");
+	FILE *out = fopen("\\npsimple.log", "a");
 	fputs(msg, out);
 	fclose(out);
 #endif
