@@ -20,12 +20,28 @@
 #include <npapi.h>
 #include <npupp.h>
 #include <npruntime.h>
+#elif defined(ANDROID)
+
+#undef HAVE_LONG_LONG
+#include <jni.h>
+#include <npapi.h>
+#include <npfunctions.h>
+#include <npruntime.h>
+#define OSCALL
+#define NPP_WRITE_TYPE (NPP_WriteProcPtr)
+#define NPStringText UTF8Characters
+#define NPStringLen  UTF8Length
+extern JNIEnv *pluginJniEnv;
+
 #elif defined(WEBKIT_DARWIN_SDK)
+
 #include <Webkit/npapi.h>
 #include <WebKit/npfunctions.h>
 #include <WebKit/npruntime.h>
 #define OSCALL
+
 #elif defined(WEBKIT_WINMOBILE_SDK) /* WebKit SDK on Windows */
+
 #ifndef PLATFORM
 #define PLATFORM(x) defined(x)
 #endif
@@ -33,15 +49,21 @@
 #ifndef OSCALL
 #define OSCALL WINAPI
 #endif
+
 #endif
 
-static NPObject *so              = NULL;
+static NPObject        *so       = NULL;
 static NPNetscapeFuncs *npnfuncs = NULL;
+static NPP              inst     = NULL;
 
 /* NPN */
 
 static void logmsg(const char *msg) {
-#ifndef _WINDOWS
+#if defined(ANDROID)
+	FILE *out = fopen("/sdcard/npsimple.log", "a");
+	fputs(msg, out);
+	fclose(out);
+#elif !defined(_WINDOWS)
 	fputs(msg, stderr);
 #else
 	FILE *out = fopen("\\npsimple.log", "a");
@@ -67,15 +89,26 @@ invokeDefault(NPObject *obj, const NPVariant *args, uint32_t argCount, NPVariant
 static bool
 invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t argCount, NPVariant *result) {
 	logmsg("npsimple: invoke\n");
+	int error = 1;
 	char *name = npnfuncs->utf8fromidentifier(methodName);
-	if(name && !strcmp((const char *)name, "foo")) {
-		return invokeDefault(obj, args, argCount, result);
+	if(name) {
+		if(!strcmp(name, "foo")) {
+			logmsg("npsimple: invoke foo\n");
+			return invokeDefault(obj, args, argCount, result);
+		}
+		else if(!strcmp(name, "callback")) {
+			if(argCount == 1 && args[0].type == NPVariantType_Object) {
+				static NPVariant v, r;
+
+				logmsg("npsimple: invoke callback function\n");
+				INT32_TO_NPVARIANT(42, v);
+				return npnfuncs->invokeDefault(inst, NPVARIANT_TO_OBJECT(args[0]), &v, 1, &r);
+			}
+		}
 	}
-	else {
-		// aim exception handling
-		npnfuncs->setexception(obj, "exception during invocation");
-		return false;
-	}
+	// aim exception handling
+	npnfuncs->setexception(obj, "exception during invocation");
+	return false;
 }
 
 static bool
@@ -108,6 +141,7 @@ static NPClass npcRefObject = {
 
 static NPError
 nevv(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc, char *argn[], char *argv[], NPSavedData *saved) {
+	inst = instance;
 	logmsg("npsimple: new\n");
 	return NPERR_NO_ERROR;
 }
@@ -123,6 +157,7 @@ destroy(NPP instance, NPSavedData **save) {
 
 static NPError
 getValue(NPP instance, NPPVariable variable, void *value) {
+	inst = instance;
 	switch(variable) {
 	default:
 		logmsg("npsimple: getvalue - default\n");
@@ -154,12 +189,14 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 
 static NPError /* expected by Safari on Darwin */
 handleEvent(NPP instance, void *ev) {
+	inst = instance;
 	logmsg("npsimple: handleEvent\n");
 	return NPERR_NO_ERROR;
 }
 
 static NPError /* expected by Opera */
 setWindow(NPP instance, NPWindow* pNPWindow) {
+	inst = instance;
 	logmsg("npsimple: setWindow\n");
 	return NPERR_NO_ERROR;
 }
@@ -188,11 +225,12 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 
 NPError OSCALL
 NP_Initialize(NPNetscapeFuncs *npnf
-#if !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
-			, NPPluginFuncs *nppfuncs)
-#else
-			)
+#if defined(ANDROID)
+			, NPPluginFuncs *nppfuncs, JNIEnv *env, jobject plugin_object
+#elif !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
+			, NPPluginFuncs *nppfuncs
 #endif
+			)
 {
 	logmsg("npsimple: NP_Initialize\n");
 	if(npnf == NULL)
@@ -222,6 +260,7 @@ NP_GetMIMEDescription(void) {
 
 NPError OSCALL /* needs to be present for WebKit based browsers */
 NP_GetValue(void *npp, NPPVariable variable, void *value) {
+	inst = (NPP)npp;
 	return getValue((NPP)npp, variable, value);
 }
 
