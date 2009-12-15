@@ -1,5 +1,5 @@
 /* ***** BEGIN LICENSE BLOCK *****
- * (C)opyright 2008 Aplix Corporation. anselm@aplixcorp.com
+ * (C)opyright 2008-2009 Aplix Corporation. anselm@aplixcorp.com
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -61,14 +61,18 @@ static NPP              inst     = NULL;
 static void logmsg(const char *msg) {
 #if defined(ANDROID)
 	FILE *out = fopen("/sdcard/npsimple.log", "a");
-	fputs(msg, out);
-	fclose(out);
+	if(out) {
+		fputs(msg, out);
+		fclose(out);
+	}
 #elif !defined(_WINDOWS)
 	fputs(msg, stderr);
 #else
 	FILE *out = fopen("\\npsimple.log", "a");
-	fputs(msg, out);
-	fclose(out);
+	if(out) {
+		fputs(msg, out);
+		fclose(out);
+	}
 #endif
 }
 
@@ -99,9 +103,13 @@ invoke(NPObject* obj, NPIdentifier methodName, const NPVariant *args, uint32_t a
 		else if(!strcmp(name, "callback")) {
 			if(argCount == 1 && args[0].type == NPVariantType_Object) {
 				static NPVariant v, r;
+				const char kHello[] = "Hello";
+				char *txt = (char *)npnfuncs->memalloc(strlen(kHello));
 
 				logmsg("npsimple: invoke callback function\n");
-				INT32_TO_NPVARIANT(42, v);
+				memcpy(txt, kHello, strlen(kHello));
+				STRINGN_TO_NPVARIANT(txt, strlen(kHello), v);
+				/* INT32_TO_NPVARIANT(42, v); */
 				if(npnfuncs->invokeDefault(inst, NPVARIANT_TO_OBJECT(args[0]), &v, 1, &r))
 					return invokeDefault(obj, args, argCount, result);
 			}
