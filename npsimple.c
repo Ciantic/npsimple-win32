@@ -16,41 +16,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#if defined(XULRUNNER_SDK)
 #include <npapi.h>
-#include <npupp.h>
-#include <npruntime.h>
-#elif defined(ANDROID)
-
-#undef HAVE_LONG_LONG
-#include <jni.h>
-#include <npapi.h>
+#include <prtypes.h>
 #include <npfunctions.h>
 #include <npruntime.h>
-#define OSCALL
-#define NPP_WRITE_TYPE (NPP_WriteProcPtr)
-#define NPStringText UTF8Characters
-#define NPStringLen  UTF8Length
-extern JNIEnv *pluginJniEnv;
-
-#elif defined(WEBKIT_DARWIN_SDK)
-
-#include <Webkit/npapi.h>
-#include <WebKit/npfunctions.h>
-#include <WebKit/npruntime.h>
-#define OSCALL
-
-#elif defined(WEBKIT_WINMOBILE_SDK) /* WebKit SDK on Windows */
-
-#ifndef PLATFORM
-#define PLATFORM(x) defined(x)
-#endif
-#include <npfunctions.h>
-#ifndef OSCALL
-#define OSCALL WINAPI
-#endif
-
-#endif
 
 static NPObject        *so       = NULL;
 static NPNetscapeFuncs *npnfuncs = NULL;
@@ -59,21 +28,11 @@ static NPP              inst     = NULL;
 /* NPN */
 
 static void logmsg(const char *msg) {
-#if defined(ANDROID)
-	FILE *out = fopen("/sdcard/npsimple.log", "a");
-	if(out) {
-		fputs(msg, out);
-		fclose(out);
-	}
-#elif !defined(_WINDOWS)
-	fputs(msg, stderr);
-#else
 	FILE *out = fopen("\\npsimple.log", "a");
 	if(out) {
 		fputs(msg, out);
 		fclose(out);
 	}
-#endif
 }
 
 static bool
@@ -149,7 +108,7 @@ static NPClass npcRefObject = {
 /* NPP */
 
 static NPError
-nevv(NPMIMEType pluginType, NPP instance, uint16 mode, int16 argc, char *argn[], char *argv[], NPSavedData *saved) {
+nevv(NPMIMEType pluginType, NPP instance, uint16_t mode, int16_t argc, char *argn[], char *argv[], NPSavedData *saved) {
 	inst = instance;
 	logmsg("npsimple: new\n");
 	return NPERR_NO_ERROR;
@@ -186,12 +145,10 @@ getValue(NPP instance, NPPVariable variable, void *value) {
 		npnfuncs->retainobject(so);
 		*(NPObject **)value = so;
 		break;
-#if defined(XULRUNNER_SDK)
 	case NPPVpluginNeedsXEmbed:
 		logmsg("npsimple: getvalue - xembed\n");
 		*((PRBool *)value) = PR_FALSE;
 		break;
-#endif
 	}
 	return NPERR_NO_ERROR;
 }
@@ -233,13 +190,7 @@ NP_GetEntryPoints(NPPluginFuncs *nppfuncs) {
 #endif
 
 NPError OSCALL
-NP_Initialize(NPNetscapeFuncs *npnf
-#if defined(ANDROID)
-			, NPPluginFuncs *nppfuncs, JNIEnv *env, jobject plugin_object
-#elif !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
-			, NPPluginFuncs *nppfuncs
-#endif
-			)
+NP_Initialize(NPNetscapeFuncs *npnf)
 {
 	logmsg("npsimple: NP_Initialize\n");
 	if(npnf == NULL)
@@ -249,9 +200,6 @@ NP_Initialize(NPNetscapeFuncs *npnf
 		return NPERR_INCOMPATIBLE_VERSION_ERROR;
 
 	npnfuncs = npnf;
-#if !defined(_WINDOWS) && !defined(WEBKIT_DARWIN_SDK)
-	NP_GetEntryPoints(nppfuncs);
-#endif
 	return NPERR_NO_ERROR;
 }
 
